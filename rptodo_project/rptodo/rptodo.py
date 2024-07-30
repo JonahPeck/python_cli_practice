@@ -13,6 +13,11 @@ class CurrentTodo(NamedTuple):
 class Todoer:
     def __init__(self, db_path: Path) -> None:
         self._db_handler = DatabaseHandler(db_path)
+    
+    def get_todo_list(self) -> List[Dict[str, Any]]:
+        """Return the current to-do list"""
+        read = self._db_handler.read_todos()
+        return read.todo_list
 
     def add(self, description: List[str], priority: int = 2) -> CurrentTodo:
         """Add a new to-do to the database."""
